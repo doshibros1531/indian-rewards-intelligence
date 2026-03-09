@@ -59,12 +59,12 @@ export default function DashboardPage() {
               
               <div className="flex flex-col md:flex-row md:items-end md:gap-12 gap-8">
                 <div>
-                  <p className="text-slate-400 text-sm font-medium mb-1">Total Reward Rate</p>
+                  <p className="text-slate-400 text-sm font-medium mb-1">Your Savings Rate</p>
                   <div className="flex items-baseline gap-2">
                     <span className="text-4xl md:text-6xl font-black text-white tracking-tighter">3.12%</span>
                     <span className="text-emerald-400 font-bold text-xs md:text-sm bg-emerald-500/10 px-2 py-0.5 rounded-lg flex items-center gap-1">
                        <ArrowUpRight className="h-3 w-3 md:h-4 md:w-4" /> 
-                       +1.9%
+                       +₹4.2k
                     </span>
                   </div>
                 </div>
@@ -89,19 +89,19 @@ export default function DashboardPage() {
 
               <div className="mt-8 md:mt-12 grid grid-cols-2 lg:grid-cols-4 gap-6 pt-6 md:pt-8 border-t border-white/5">
                 <div>
-                  <p className="text-slate-400 text-[10px] font-bold uppercase tracking-wider mb-1">Value Back</p>
+                  <p className="text-slate-400 text-[10px] font-bold uppercase tracking-wider mb-1">Total Rewards</p>
                   <p className="text-xl md:text-2xl font-black text-white tracking-tight">{formatCurrency(44320)}</p>
                 </div>
                 <div>
-                  <p className="text-slate-400 text-[10px] font-bold uppercase tracking-wider mb-1">Portfolio</p>
-                  <p className="text-xl md:text-2xl font-black text-white tracking-tight">₹1.4<span className="text-slate-500 text-xs md:text-sm font-bold"> Cr</span></p>
+                  <p className="text-slate-400 text-[10px] font-bold uppercase tracking-wider mb-1">Annual Spend</p>
+                  <p className="text-xl md:text-2xl font-black text-white tracking-tight">₹14.2<span className="text-slate-500 text-xs md:text-sm font-bold"> L</span></p>
                 </div>
                 <div className="hidden md:block">
                    <p className="text-slate-400 text-[10px] font-bold uppercase tracking-wider mb-1">Active Cards</p>
                    <p className="text-xl md:text-2xl font-black text-white">08</p>
                 </div>
                 <div className="hidden md:block">
-                   <p className="text-slate-400 text-[10px] font-bold uppercase tracking-wider mb-1">Efficiency</p>
+                   <p className="text-slate-400 text-[10px] font-bold uppercase tracking-wider mb-1">Optimizer Score</p>
                    <p className="text-xl md:text-2xl font-black text-emerald-400">92%</p>
                 </div>
               </div>
