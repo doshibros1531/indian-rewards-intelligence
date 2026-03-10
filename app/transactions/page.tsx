@@ -20,11 +20,22 @@ import {
   Tag
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { TRANSACTIONS } from '@/lib/mock-transactions';
+import { useRewardStore } from '@/lib/store';
 import { formatCurrency } from '@/lib/reward-logic';
 
 export default function TransactionsPage() {
+  const { transactions, cards } = useRewardStore();
   const [searchQuery, setSearchQuery] = useState('');
+
+  // Calculate real summaries
+  const totalAmount = transactions.reduce((acc, tx) => acc + tx.amount, 0);
+  const totalPoints = transactions.reduce((acc, tx) => acc + tx.pointsEarned, 0);
+  const avgRewardRate = totalAmount > 0 ? ((totalPoints * 0.25 / totalAmount) * 100).toFixed(1) : "0.0"; // estimating 1pt = 0.25 inr for avg
+  
+  const filteredTransactions = transactions.filter(tx => 
+    tx.merchant.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    tx.category.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <LayoutWrapper>
@@ -43,24 +54,24 @@ export default function TransactionsPage() {
         {/* Transaction Metrics */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
            <div className="bg-white border border-slate-100 p-4 md:p-6 rounded-2xl md:rounded-3xl shadow-sm">
-              <p className="text-[9px] md:text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 md:mb-2">Total Managed</p>
-              <p className="text-lg md:text-2xl font-black text-slate-900 leading-none">₹84.2k</p>
-              <p className="text-[8px] md:text-[10px] font-bold text-slate-500 mt-2">Last 30 Days</p>
+              <p className="text-[9px] md:text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 md:mb-2">Total Analyzed</p>
+              <p className="text-lg md:text-2xl font-black text-slate-900 leading-none">{formatCurrency(totalAmount)}</p>
+              <p className="text-[8px] md:text-[10px] font-bold text-slate-500 mt-2">Personal Statement</p>
            </div>
            <div className="bg-white border border-slate-100 p-4 md:p-6 rounded-2xl md:rounded-3xl shadow-sm">
               <p className="text-[9px] md:text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 md:mb-2 text-blue-600">Points Earned</p>
-              <p className="text-lg md:text-2xl font-black text-blue-600 leading-none">12,450</p>
+              <p className="text-lg md:text-2xl font-black text-blue-600 leading-none">{totalPoints.toLocaleString()}</p>
               <p className="text-[8px] md:text-[10px] font-bold text-slate-500 mt-2">IROS Verified</p>
            </div>
            <div className="hidden md:block bg-white border border-slate-100 p-6 rounded-3xl shadow-sm">
               <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 text-emerald-600">Avg. Reward Rate</p>
-              <p className="text-2xl font-black text-emerald-600">3.8%</p>
-              <p className="text-[10px] font-bold text-slate-500 mt-2">Top decile</p>
+              <p className="text-2xl font-black text-emerald-600">{avgRewardRate}%</p>
+              <p className="text-[10px] font-bold text-slate-500 mt-2">Statement average</p>
            </div>
            <div className="hidden md:block bg-white border border-slate-100 p-6 rounded-3xl shadow-sm">
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">Efficiency</p>
-              <p className="text-2xl font-black text-slate-900">94.2%</p>
-              <p className="text-[10px] font-bold text-slate-500 mt-2">Optimization ratio</p>
+              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">Optimizer Score</p>
+              <p className="text-2xl font-black text-slate-900">94%</p>
+              <p className="text-[10px] font-bold text-slate-500 mt-2">Efficiency rating</p>
            </div>
         </div>
 
@@ -85,7 +96,9 @@ export default function TransactionsPage() {
            </div>
 
            <div className="space-y-4">
-              {TRANSACTIONS.map((tx) => (
+              {filteredTransactions.map((tx) => {
+                 const card = cards.find(c => c.id === tx.cardId);
+                 return (
                 <div 
                   key={tx.id} 
                   className="premium-card rounded-2xl md:rounded-3xl p-5 md:p-6 flex flex-col md:flex-row md:items-center justify-between gap-6 group"
@@ -102,7 +115,7 @@ export default function TransactionsPage() {
                         <div className="flex items-center gap-2">
                            <p className="text-xs font-bold text-slate-500">{tx.date}</p>
                            <div className="h-1 w-1 rounded-full bg-slate-200" />
-                           <p className="text-[10px] font-bold text-blue-600 italic tracking-tighter uppercase">{tx.cardId === '1' ? 'HDFC INFINIA' : tx.cardId === '2' ? 'AMEX PLAT' : 'AXIS MAGNUS'}</p>
+                           <p className="text-[10px] font-bold text-blue-600 italic tracking-tighter uppercase">{card ? `${card.issuer} ${card.name}` : 'OTHER CARD'}</p>
                         </div>
                      </div>
                   </div>
@@ -118,7 +131,8 @@ export default function TransactionsPage() {
                      </div>
                   </div>
                 </div>
-              ))}
+              );
+               })}
            </div>
         </div>
       </div>

@@ -25,20 +25,24 @@ import {
   ShoppingBag,
   Info
 } from 'lucide-react';
-import { CARDS_DATA, INDIAN_BANKS, formatCurrency, CardIssuer } from '@/lib/reward-logic';
+import { formatCurrency, CardIssuer, Card, INDIAN_BANKS } from '@/lib/reward-logic';
 import { cn } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useRewardStore } from '@/lib/store';
 
 export default function InventoryPage() {
+  const { cards, addCard } = useRewardStore();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
-    bankId: '',
+    bankId: '' as any,
     cardName: '',
     last4: ''
   });
   const [isVerifying, setIsVerifying] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+
+  const totalPortfolioValue = cards.reduce((acc, card) => acc + (card.currentPoints * card.pointsToRupees), 0);
 
   const selectedBank = INDIAN_BANKS.find(b => b.id === formData.bankId);
 
@@ -53,6 +57,24 @@ export default function InventoryPage() {
   const simulateVerification = () => {
     setIsVerifying(true);
     setTimeout(() => {
+      // Create a logical new card based on selected bank
+      const newCard: Card = {
+        id: Math.random().toString(36).substr(2, 9),
+        issuer: formData.bankId as CardIssuer,
+        name: formData.cardName,
+        last4: formData.last4,
+        color: formData.bankId === 'AMEX' ? 'bg-amber-600' : 'bg-blue-600',
+        baseRewardRate: 2.0,
+        pointsToRupees: 0.25, // default low value for others
+        currentPoints: 2400,
+        annualFee: 0,
+        isAnnualFeeWaived: true,
+        spendThresholdForWaiver: 0,
+        rewardsBreakdown: { cashback: 0, airmiles: 0, cash: 0, vouchers: 0 },
+        redemptionRules: [{ category: 'General', rate: 0.25 }]
+      };
+      
+      addCard(newCard);
       setIsVerifying(false);
       setIsSuccess(true);
     }, 2000);
@@ -121,7 +143,7 @@ export default function InventoryPage() {
            </h2>
 
            <div className="grid gap-4 md:gap-6 lg:grid-cols-2">
-             {CARDS_DATA.map((card) => (
+             {cards.map((card) => (
                 <div key={card.id} className="premium-card rounded-2xl md:rounded-[2rem] p-5 md:p-8 flex items-center justify-between group overflow-hidden relative">
                    <div className={cn("absolute top-0 right-0 w-32 h-32 blur-3xl rounded-full opacity-10 group-hover:opacity-20 transition-opacity", card.color)} />
                    
@@ -134,7 +156,7 @@ export default function InventoryPage() {
                    </div>
 
                    <div className="text-right relative z-10">
-                      <p className="text-[9px] md:text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 leading-none">Net Value</p>
+                      <p className="text-[9px] md:text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 leading-none">Reward Balance</p>
                       <p className="text-lg md:text-xl font-black text-slate-900">{formatCurrency(card.currentPoints * card.pointsToRupees)}</p>
                       <div className="flex items-center justify-end gap-2 mt-2">
                          <span className="text-[10px] font-bold text-emerald-600">Active</span>
@@ -218,7 +240,7 @@ export default function InventoryPage() {
                              {INDIAN_BANKS.map(bank => (
                                <button 
                                  key={bank.id}
-                                 onClick={() => setFormData({ ...formData, bankId: bank.id, cardName: '' })}
+                                 onClick={() => setFormData({ ...formData, bankId: bank.id as CardIssuer, cardName: '' })}
                                  className={cn(
                                    "p-4 rounded-2xl border-2 text-center transition-all",
                                    formData.bankId === bank.id 
@@ -318,7 +340,7 @@ export default function InventoryPage() {
                     </div>
                     <div className="bg-slate-50 p-6 rounded-3xl border border-slate-100 max-w-sm mx-auto">
                        <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">New Portfolio Value</p>
-                       <p className="text-2xl font-black text-slate-900">₹1.2L <span className="text-emerald-500 font-bold">+₹14k</span></p>
+                       <p className="text-2xl font-black text-slate-900">{formatCurrency(totalPortfolioValue)}</p>
                     </div>
                     <button 
                       onClick={resetModal}

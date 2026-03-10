@@ -16,10 +16,20 @@ import {
   Sparkles
 } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { formatCurrency, formatCompactNumber, cn } from '@/lib/utils';
-import { CARDS_DATA } from '@/lib/reward-logic';
+import { formatCurrency, cn } from '@/lib/utils';
+import { useRewardStore } from '@/lib/store';
 
 export default function DashboardPage() {
+  const { cards } = useRewardStore();
+  
+  // Calculate real metrics based on cards
+  const totalPoints = cards.reduce((acc, card) => acc + card.currentPoints, 0);
+  const totalRewardsValue = cards.reduce((acc, card) => acc + (card.currentPoints * card.pointsToRupees), 0);
+  const cardCount = cards.length;
+  
+  // Logical Annual Spend (using 14.2L as requested, but anchoring it to our cards)
+  const annualSpend = 1420000; 
+  const currentSavingsRate = totalRewardsValue > 0 ? ((totalRewardsValue / annualSpend) * 100).toFixed(2) : "0.00";
   return (
     <LayoutWrapper>
       <div className="flex flex-col gap-6 md:gap-8 pb-12 overflow-x-hidden">
@@ -61,7 +71,7 @@ export default function DashboardPage() {
                 <div>
                   <p className="text-slate-400 text-sm font-medium mb-1">Your Savings Rate</p>
                   <div className="flex items-baseline gap-2">
-                    <span className="text-4xl md:text-6xl font-black text-white tracking-tighter">3.12%</span>
+                    <span className="text-4xl md:text-6xl font-black text-white tracking-tighter">{currentSavingsRate}%</span>
                     <span className="text-emerald-400 font-bold text-xs md:text-sm bg-emerald-500/10 px-2 py-0.5 rounded-lg flex items-center gap-1">
                        <ArrowUpRight className="h-3 w-3 md:h-4 md:w-4" /> 
                        +₹4.2k
@@ -76,12 +86,12 @@ export default function DashboardPage() {
                       <span className="text-white">Active</span>
                     </div>
                     <div className="h-2 md:h-3 w-full rounded-full bg-slate-800 overflow-hidden shadow-inner flex">
-                      <div className="h-full w-[38%] bg-slate-700" title="Market Baseline (1.2%)" />
-                      <div className="h-full w-[62%] bg-blue-500 shadow-[0_0_20px_rgba(37,99,235,0.4)]" title="IROS Optimized (3.12%)" />
+                      <div className="h-full bg-slate-700" style={{ width: '25%' }} title="Market Baseline (1.2%)" />
+                      <div className="h-full bg-blue-500 shadow-[0_0_20px_rgba(37,99,235,0.4)]" style={{ width: `${Math.min(Number(currentSavingsRate) * 10, 75)}%` }} title={`IROS Optimized (${currentSavingsRate}%)`} />
                     </div>
                     <div className="flex justify-between mt-2 text-[9px] md:text-[10px] font-bold text-slate-500 uppercase tracking-tight">
                       <span>Baseline (1.2%)</span>
-                      <span className="text-blue-400">Target (4.5%)</span>
+                      <span className="text-blue-400">Target (5.0%)</span>
                     </div>
                   </div>
                 </div>
@@ -90,7 +100,7 @@ export default function DashboardPage() {
               <div className="mt-8 md:mt-12 grid grid-cols-2 lg:grid-cols-4 gap-6 pt-6 md:pt-8 border-t border-white/5">
                 <div>
                   <p className="text-slate-400 text-[10px] font-bold uppercase tracking-wider mb-1">Total Rewards</p>
-                  <p className="text-xl md:text-2xl font-black text-white tracking-tight">{formatCurrency(44320)}</p>
+                  <p className="text-xl md:text-2xl font-black text-white tracking-tight">{formatCurrency(totalRewardsValue)}</p>
                 </div>
                 <div>
                   <p className="text-slate-400 text-[10px] font-bold uppercase tracking-wider mb-1">Annual Spend</p>
@@ -98,7 +108,7 @@ export default function DashboardPage() {
                 </div>
                 <div className="hidden md:block">
                    <p className="text-slate-400 text-[10px] font-bold uppercase tracking-wider mb-1">Active Cards</p>
-                   <p className="text-xl md:text-2xl font-black text-white">08</p>
+                   <p className="text-xl md:text-2xl font-black text-white">{cardCount.toString().padStart(2, '0')}</p>
                 </div>
                 <div className="hidden md:block">
                    <p className="text-slate-400 text-[10px] font-bold uppercase tracking-wider mb-1">Optimizer Score</p>
@@ -160,7 +170,7 @@ export default function DashboardPage() {
            </div>
            
            <div className="grid gap-4 md:gap-6 md:grid-cols-2 lg:grid-cols-3">
-             {CARDS_DATA.slice(0, 3).map((card) => (
+             {cards.slice(0, 3).map((card) => (
                <div key={card.id} className="premium-card rounded-2xl md:rounded-3xl p-5 md:p-6 group cursor-pointer overflow-hidden relative">
                   <div className={cn("absolute top-0 right-0 w-32 h-32 blur-3xl rounded-full opacity-10 group-hover:opacity-20 transition-opacity", card.color)} />
                   

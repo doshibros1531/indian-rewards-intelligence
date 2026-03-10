@@ -15,21 +15,24 @@ import {
   Tag
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { CARDS_DATA, formatCurrency } from '@/lib/reward-logic';
+import { formatCurrency } from '@/lib/reward-logic';
 import { cn, formatCompactNumber } from '@/lib/utils';
+import { useRewardStore } from '@/lib/store';
 
 export default function WalletPage() {
+  const { cards } = useRewardStore();
   const [isRedeemModalOpen, setIsRedeemModalOpen] = useState(false);
 
   // Calculate global totals
-  const totals = CARDS_DATA.reduce((acc, card) => {
-    acc.cashback += card.rewardsBreakdown.cashback;
-    acc.airmiles += card.rewardsBreakdown.airmiles;
-    acc.cash += card.rewardsBreakdown.cash;
-    acc.vouchers += card.rewardsBreakdown.vouchers;
+  const totals = cards.reduce((acc, card) => {
+    acc.cashback += card.rewardsBreakdown?.cashback || 0;
+    acc.airmiles += card.rewardsBreakdown?.airmiles || 0;
+    acc.cash += card.rewardsBreakdown?.cash || 0;
+    acc.vouchers += card.rewardsBreakdown?.vouchers || 0;
     acc.totalValue += (card.currentPoints * card.pointsToRupees);
+    acc.totalPoints += card.currentPoints;
     return acc;
-  }, { cashback: 0, airmiles: 0, cash: 0, vouchers: 0, totalValue: 0 });
+  }, { cashback: 0, airmiles: 0, cash: 0, vouchers: 0, totalValue: 0, totalPoints: 0 });
 
   return (
     <LayoutWrapper>
@@ -55,7 +58,7 @@ export default function WalletPage() {
                     <p className="text-[10px] md:text-xs font-black text-slate-400 uppercase tracking-[0.2em] leading-none">Total Point Balance</p>
                     <div className="flex items-baseline gap-3">
                        <span className="text-4xl md:text-6xl font-black text-slate-900 tracking-tighter">
-                         {totals.airmiles + totals.cashback + totals.cash + totals.vouchers === 0 ? '1,24,500' : (totals.airmiles + totals.cashback + totals.cash + totals.vouchers).toLocaleString()}
+                         {totals.totalPoints.toLocaleString()}
                        </span>
                        <span className="text-slate-400 font-bold text-sm md:text-lg">Points</span>
                     </div>
@@ -65,7 +68,7 @@ export default function WalletPage() {
                     <p className="text-[10px] font-black text-blue-600 uppercase tracking-[0.2em] mb-2 leading-none">Max Potential Value</p>
                     <div className="flex items-center gap-2">
                        <span className="text-2xl md:text-3xl font-black text-emerald-600">
-                         {formatCurrency(124500 * 1.0)}
+                         {formatCurrency(totals.totalPoints * 1.0)}
                        </span>
                        <span className="bg-emerald-50 text-emerald-600 text-[10px] font-bold px-2 py-1 rounded-md">At ₹1.0 / pt</span>
                     </div>
@@ -76,22 +79,22 @@ export default function WalletPage() {
               <div className="flex-1 grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
                  <div className="bg-slate-50 p-4 md:p-5 rounded-2xl md:rounded-3xl border border-slate-100/50 group/item hover:bg-emerald-50/50 transition-colors">
                     <p className="text-[9px] md:text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 leading-none group-hover/item:text-emerald-600">Pure Cashback</p>
-                    <p className="text-lg md:text-xl font-black text-slate-900">{formatCurrency(124500 * 0.3)}</p>
+                    <p className="text-lg md:text-xl font-black text-slate-900">{formatCurrency(totals.totalPoints * 0.3)}</p>
                     <p className="text-[8px] font-bold text-slate-400 mt-1 uppercase">@ ₹0.30</p>
                  </div>
                  <div className="bg-slate-50 p-4 md:p-5 rounded-2xl md:rounded-3xl border border-slate-100/50 group/item hover:bg-blue-50/50 transition-colors">
                     <p className="text-[9px] md:text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 leading-none group-hover/item:text-blue-600">Travel/Miles</p>
-                    <p className="text-lg md:text-xl font-black text-slate-900">{formatCurrency(124500 * 1.0)}</p>
+                    <p className="text-lg md:text-xl font-black text-slate-900">{formatCurrency(totals.totalPoints * 1.0)}</p>
                     <p className="text-[8px] font-bold text-slate-400 mt-1 uppercase">@ ₹1.00</p>
                  </div>
                  <div className="bg-slate-50 p-4 md:p-5 rounded-2xl md:rounded-3xl border border-slate-100/50 group/item hover:bg-amber-50/50 transition-colors">
                     <p className="text-[9px] md:text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 leading-none group-hover/item:text-amber-600">Vouchers</p>
-                    <p className="text-lg md:text-xl font-black text-slate-900">{formatCurrency(124500 * 0.5)}</p>
+                    <p className="text-lg md:text-xl font-black text-slate-900">{formatCurrency(totals.totalPoints * 0.5)}</p>
                     <p className="text-[8px] font-bold text-slate-400 mt-1 uppercase">@ ₹0.50</p>
                  </div>
                  <div className="bg-slate-50 p-4 md:p-5 rounded-2xl md:rounded-3xl border border-slate-100/50 group/item hover:bg-purple-50/50 transition-colors">
                     <p className="text-[9px] md:text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 leading-none group-hover/item:text-purple-600">Apple/Luxury</p>
-                    <p className="text-lg md:text-xl font-black text-slate-900">{formatCurrency(124500 * 1.0)}</p>
+                    <p className="text-lg md:text-xl font-black text-slate-900">{formatCurrency(totals.totalPoints * 1.0)}</p>
                     <p className="text-[8px] font-bold text-slate-400 mt-1 uppercase">@ ₹1.00</p>
                  </div>
               </div>
@@ -106,7 +109,7 @@ export default function WalletPage() {
            </h2>
 
            <div className="grid gap-6">
-              {CARDS_DATA.map((card) => (
+              {cards.map((card) => (
                 <div key={card.id} className="premium-card rounded-2xl md:rounded-[2.5rem] p-6 md:p-8 flex flex-col md:flex-row gap-6 md:gap-12 group transition-all hover:border-blue-100">
                    <div className="flex md:flex-col items-center md:items-start justify-between md:justify-center md:w-[15%]">
                       <div className={cn("h-10 w-14 md:h-12 md:w-20 rounded-xl flex items-center justify-center text-[8px] md:text-[10px] font-black italic tracking-tighter text-white transition-transform group-hover:scale-105", card.color)}>{card.issuer}</div>
@@ -173,4 +176,3 @@ export default function WalletPage() {
     </LayoutWrapper>
   );
 }
-
