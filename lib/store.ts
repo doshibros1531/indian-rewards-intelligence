@@ -12,11 +12,11 @@ interface RewardStore {
 }
 
 export const useRewardStore = create<RewardStore>((set) => ({
-  // Initialize with only Infinia as requested
-  cards: CARDS_DATA.filter(card => card.issuer === 'HDFC'),
+  // Initialize with all cards
+  cards: CARDS_DATA,
   
-  // Initialize with transactions for the active card
-  transactions: TRANSACTIONS.filter(tx => tx.cardId === '1'),
+  // Initialize with all transactions
+  transactions: TRANSACTIONS,
   
   addCard: (card) => set((state) => ({ 
     cards: [...state.cards, card] 

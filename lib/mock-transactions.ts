@@ -35,28 +35,7 @@ export const TRANSACTIONS: Transaction[] = [
     rupeeValue: 900,
     status: 'Completed',
   },
-  {
-    id: 't3',
-    merchant: 'Blinkit',
-    amount: 1450,
-    category: 'Grocery',
-    date: '2026-03-03',
-    cardId: '3', // Magnus
-    pointsEarned: 17,
-    rupeeValue: 17 * 0.2,
-    status: 'Completed',
-  },
-  {
-    id: 't4',
-    merchant: 'Air India',
-    amount: 8500,
-    category: 'Travel',
-    date: '2026-03-04',
-    cardId: '2', // Amex Plat Travel
-    pointsEarned: 170,
-    rupeeValue: 170 * 0.4,
-    status: 'Completed',
-  },
+
   {
     id: 't5',
     merchant: 'Indigo',
@@ -66,6 +45,72 @@ export const TRANSACTIONS: Transaction[] = [
     cardId: '1',
     pointsEarned: 2000,
     rupeeValue: 2000,
+    status: 'Completed',
+  },
+  {
+    id: 't6',
+    merchant: 'Nykaa',
+    amount: 3200,
+    category: 'Shopping',
+    date: '2026-03-06',
+    cardId: '2', // Regalia Gold
+    pointsEarned: 427,
+    rupeeValue: 427 * 0.5,
+    status: 'Completed',
+  },
+  {
+    id: 't7',
+    merchant: 'Indigo',
+    amount: 45000,
+    category: 'Travel',
+    date: '2026-03-07',
+    cardId: '4', // Axis Atlas
+    pointsEarned: 2250, // 5X Miles on travel
+    rupeeValue: 2250,
+    status: 'Completed',
+  },
+  {
+    id: 't8',
+    merchant: 'Marriott',
+    amount: 15000,
+    category: 'Travel',
+    date: '2026-03-08',
+    cardId: '3', // Magnus
+    pointsEarned: 900,
+    rupeeValue: 900 * 0.2,
+    status: 'Completed',
+  },
+  {
+    id: 't9',
+    merchant: 'Zomato',
+    amount: 2500,
+    category: 'Dining',
+    date: '2026-03-09',
+    cardId: '5', // SBI Elite
+    pointsEarned: 125, // 5X on dining
+    rupeeValue: 125 * 0.25,
+    status: 'Completed',
+  },
+  {
+    id: 't10',
+    merchant: 'PVR Cinemas',
+    amount: 1200,
+    category: 'Shopping',
+    date: '2026-03-10',
+    cardId: '6', // ICICI Sapphiro
+    pointsEarned: 60, // 5X on movies
+    rupeeValue: 60 * 0.25,
+    status: 'Completed',
+  },
+  {
+    id: 't11',
+    merchant: 'Apple India',
+    amount: 89000,
+    category: 'Shopping',
+    date: '2026-03-11',
+    cardId: '7', // Amex Plat Travel
+    pointsEarned: 1780,
+    rupeeValue: 1780 * 0.5,
     status: 'Completed',
   }
 ];

@@ -128,18 +128,18 @@ export default function MarketplacePage() {
         </div>
 
         {/* Global Search Meta Banner */}
-        <div className="rounded-[2rem] md:rounded-[3rem] bg-indigo-600 p-8 md:p-12 text-white shadow-2xl relative overflow-hidden group mt-6">
-           <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl -mr-48 -mt-48 transition-transform group-hover:scale-110" />
+        <div className="rounded-[2rem] md:rounded-[3rem] bg-slate-900 p-8 md:p-12 text-white shadow-2xl relative overflow-hidden group mt-6">
+           <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl -mr-48 -mt-48 transition-transform group-hover:scale-110" />
            <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-10">
               <div className="max-w-xl space-y-4">
                  <h2 className="text-3xl md:text-5xl font-black leading-tight tracking-tighter">Your points are global currency.</h2>
-                 <p className="text-indigo-100 text-sm md:text-lg font-medium leading-relaxed tracking-tight">
+                 <p className="text-slate-400 text-sm md:text-lg font-medium leading-relaxed tracking-tight">
                     IROS automatically searches 1,200+ partner portals to find the absolute best redemption value for your collective point balance.
                  </p>
               </div>
               <div className="flex flex-col gap-4">
-                 <button className="h-14 px-8 rounded-2xl bg-white text-indigo-600 font-black tracking-tight hover:shadow-xl hover:scale-105 transition-all">Enable Global Search</button>
-                 <p className="text-[10px] font-bold text-indigo-200 uppercase tracking-[0.3em] text-center italic">IROS One-Click Redemption</p>
+                 <button className="h-14 px-8 rounded-xl bg-emerald-500 text-slate-900 font-black tracking-tight hover:shadow-xl hover:scale-105 transition-all">Enable Global Search</button>
+                 <p className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.3em] text-center italic">IROS One-Click Redemption</p>
               </div>
            </div>
         </div>
