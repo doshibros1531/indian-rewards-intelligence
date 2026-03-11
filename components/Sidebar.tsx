@@ -24,6 +24,7 @@ const navItems = [
   { name: 'Marketplace', icon: ShoppingBag, href: '/marketplace' },
   { name: 'Milestones', icon: Target, href: '/milestones' },
   { name: 'Transactions', icon: History, href: '/transactions' },
+  { name: 'Case Studies', icon: Sparkles, href: '/case-studies' },
 ];
 
 export function Sidebar() {

@@ -99,27 +99,7 @@ export const CARDS_DATA: Card[] = [
       { spendAmount: 500000, rewardValue: 5000, label: 'Annual Milestone' }
     ]
   },
-  {
-    id: '3',
-    issuer: 'AXIS',
-    name: 'Magnus',
-    last4: '8892',
-    color: 'bg-emerald-600',
-    baseRewardRate: 6.0, // 12 EDGE per 200
-    pointsToRupees: 0.2,
-    currentPoints: 85000,
-    annualFee: 12500,
-    isAnnualFeeWaived: false,
-    spendThresholdForWaiver: 1500000,
-    rewardsBreakdown: { cashback: 0, airmiles: 70000, cash: 0, vouchers: 15000 },
-    redemptionRules: [
-      { category: 'Travel/Vouchers/Catalog', rate: 0.2 },
-      { category: 'Airmiles Transfer (5:2)', rate: 0.4, unit: 'Mile' } // 5 pts = 2 miles, so 1 pt = 0.4 miles
-    ],
-    milestoneTargets: [
-      { spendAmount: 150000, rewardValue: 25000, label: 'Monthly Milestone' }
-    ]
-  },
+
   {
     id: '4',
     issuer: 'AXIS',

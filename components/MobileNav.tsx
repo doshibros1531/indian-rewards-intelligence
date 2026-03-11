@@ -9,13 +9,15 @@ import {
   ShieldCheck, 
   Wallet, 
   ShoppingBag,
-  History
+  History,
+  Sparkles
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const mobileItems = [
   { name: 'Home', icon: LayoutDashboard, href: '/' },
   { name: 'Cards', icon: CreditCard, href: '/inventory' },
+  { name: 'Studies', icon: Sparkles, href: '/case-studies' },
   { name: 'Rewards', icon: Wallet, href: '/wallet' },
   { name: 'Shop', icon: ShoppingBag, href: '/marketplace' },
 ];
