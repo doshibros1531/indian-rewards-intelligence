@@ -23,11 +23,11 @@ const mainItems = [
   { name: 'Home', icon: LayoutDashboard, href: '/' },
   { name: 'Cards', icon: CreditCard, href: '/inventory' },
   { name: 'Ledger', icon: History, href: '/transactions' },
+  { name: 'Optimize', icon: Sparkles, href: '/optimization' },
   { name: 'Wallet', icon: Wallet, href: '/wallet' },
 ];
 
 const moreItems = [
-  { name: 'Optimize', icon: Sparkles, href: '/optimization' },
   { name: 'Marketplace', icon: ShoppingBag, href: '/marketplace' },
   { name: 'Milestones', icon: Target, href: '/milestones' },
   { name: 'Case Studies', icon: Sparkles, href: '/case-studies' },
@@ -119,7 +119,7 @@ export function MobileNav() {
       </AnimatePresence>
 
       {/* Primary Bottom Bar */}
-      <div className="fixed bottom-0 left-0 z-50 flex h-20 w-full items-center justify-around border-t bg-white/80 backdrop-blur-xl px-2 pb-safe lg:hidden shadow-[0_-5px_20px_rgba(0,0,0,0.05)]">
+      <div className="fixed bottom-0 left-0 z-50 flex h-[4.5rem] w-full items-center justify-between border-t bg-white/80 backdrop-blur-xl px-1 sm:px-2 pb-safe lg:hidden shadow-[0_-5px_20px_rgba(0,0,0,0.05)]">
         {mainItems.map((item) => {
           const isActive = pathname === item.href;
           return (
@@ -127,17 +127,17 @@ export function MobileNav() {
               key={item.href}
               href={item.href}
               className={cn(
-                "flex flex-col items-center gap-1.5 transition-all duration-300 px-3",
+                "flex flex-[1_1_0] flex-col items-center gap-1 transition-all duration-300",
                 isActive ? "text-emerald-600 -translate-y-1" : "text-slate-400 hover:text-slate-600"
               )}
             >
               <div className={cn(
-                "p-2 rounded-xl transition-all duration-300",
+                "p-1.5 sm:p-2 rounded-xl transition-all duration-300",
                 isActive ? "bg-emerald-50 shadow-sm" : ""
               )}>
-                <item.icon className="h-6 w-6" />
+                <item.icon className="h-5 w-5 sm:h-6 sm:w-6" />
               </div>
-              <span className="text-[10px] font-black uppercase tracking-tighter">{item.name}</span>
+              <span className="text-[8px] sm:text-[9px] font-black uppercase tracking-tighter truncate w-full text-center px-0.5">{item.name}</span>
             </Link>
           );
         })}
@@ -145,17 +145,17 @@ export function MobileNav() {
         <button
           onClick={toggleMenu}
           className={cn(
-            "flex flex-col items-center gap-1.5 transition-all duration-300 px-3",
+            "flex flex-[1_1_0] flex-col items-center gap-1 transition-all duration-300",
             isMenuOpen ? "text-emerald-600" : "text-slate-400 hover:text-slate-600"
           )}
         >
           <div className={cn(
-            "p-2 rounded-xl transition-all duration-300",
+            "p-1.5 sm:p-2 rounded-xl transition-all duration-300",
             isMenuOpen ? "bg-emerald-50 shadow-sm" : ""
           )}>
-            <Menu className="h-6 w-6" />
+            <Menu className="h-5 w-5 sm:h-6 sm:w-6" />
           </div>
-          <span className="text-[10px] font-black uppercase tracking-tighter">More</span>
+          <span className="text-[8px] sm:text-[9px] font-black uppercase tracking-tighter truncate w-full text-center px-0.5">More</span>
         </button>
       </div>
     </>
