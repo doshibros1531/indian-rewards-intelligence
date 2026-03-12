@@ -59,10 +59,27 @@ export default function WalletPage() {
             <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight text-slate-900 leading-tight">Rewards Wallet</h1>
             <p className="mt-1 text-sm md:text-base text-slate-500 font-medium tracking-tight">Real-time valuation of your collective reward arsenal.</p>
           </div>
-          <button className="flex items-center justify-center gap-2 rounded-xl bg-emerald-600 px-6 py-4 text-sm font-bold text-white shadow-lg shadow-emerald-500/20 hover:bg-emerald-500 transition-all w-full md:w-auto">
-             <ArrowUpRight className="h-4 w-4" />
-             Transfer Points
-          </button>
+          <div className="flex items-center gap-3">
+            <div className="hidden md:block text-right">
+              <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1">Portfolio Snapshot</p>
+              <div className="flex items-center gap-3">
+                 <div className="text-right border-r border-slate-200 pr-3">
+                    <p className="text-[9px] font-bold text-slate-400 uppercase">Points</p>
+                    <p className="text-base font-black text-slate-900 leading-none">{cards.reduce((acc, c) => acc + c.currentPoints, 0).toLocaleString()}</p>
+                 </div>
+                 <div className="text-left">
+                    <p className="text-[9px] font-bold text-emerald-600 uppercase">Total Value</p>
+                    <p className="text-base font-black text-emerald-600 leading-none">
+                       {formatCurrency(cards.reduce((acc, c) => acc + (c.currentPoints * c.pointsToRupees), 0))}
+                    </p>
+                 </div>
+              </div>
+            </div>
+            <button className="flex items-center justify-center gap-2 rounded-xl bg-emerald-600 px-6 py-4 text-sm font-bold text-white shadow-lg shadow-emerald-500/20 hover:bg-emerald-500 transition-all w-full md:w-auto">
+               <ArrowUpRight className="h-4 w-4" />
+               Transfer Points
+            </button>
+          </div>
         </div>
 
         {/* Card Selector */}
@@ -105,10 +122,10 @@ export default function WalletPage() {
            )} />
            
            <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-8 md:gap-12">
-              <div className="space-y-4">
+              <div className="space-y-4 text-left">
                  <div className="space-y-1">
                     <p className="text-[10px] md:text-xs font-black text-slate-500 uppercase tracking-[0.2em] leading-none">
-                      {selectedCardId === 'all' ? 'Total Point Balance' : `${displayData.name} Balance`}
+                      {selectedCardId === 'all' ? 'Total Portfolio Balance' : `${displayData.name} Balance`}
                     </p>
                     <div className="flex items-baseline gap-3">
                        <span className="text-4xl md:text-6xl font-black text-slate-900 tracking-tighter">
@@ -119,41 +136,25 @@ export default function WalletPage() {
                  </div>
 
                  <div className="pt-4 border-t border-slate-100">
-                    <p className="text-[10px] font-black text-emerald-600 uppercase tracking-[0.2em] mb-2 leading-none">Net Liquid Value</p>
+                    <p className="text-[10px] font-black text-emerald-600 uppercase tracking-[0.2em] mb-2 leading-none">Global Liquidity</p>
                     <div className="flex items-center gap-2">
                        <span className="text-2xl md:text-3xl font-black text-emerald-600">
                          {formatCurrency(displayData.totalValue)}
                        </span>
-                       <span className="bg-emerald-50 text-emerald-700 text-[10px] font-bold px-2 py-1 rounded-md border border-emerald-100">
-                         Avg ₹{displayData.pointsToRupees.toFixed(2)} / pt
-                       </span>
+                       <div className="bg-emerald-50 text-emerald-700 text-[10px] font-bold px-2 py-1 rounded-md border border-emerald-100">
+                         AVG ₹{displayData.pointsToRupees.toFixed(2)} / PT
+                       </div>
                     </div>
-                    {selectedCardId === 'all' && (
-                      <p className="text-[10px] font-bold text-slate-500 mt-2 italic">*Based on optimal redemption across flights, hotels, and luxury retail.</p>
-                    )}
                  </div>
               </div>
 
-              <div className="flex-1 grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-                 <div className="bg-slate-50 p-4 md:p-5 rounded-2xl md:rounded-3xl border border-slate-100/50 group/item hover:bg-emerald-50 transition-colors">
-                    <p className="text-[9px] md:text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2 leading-none group-hover/item:text-emerald-600">Pure Cashback</p>
-                    <p className="text-lg md:text-xl font-black text-slate-900">{formatCurrency(displayData.breakdown.cashback)}</p>
-                    <div className="h-1 w-8 bg-emerald-500 mt-3 rounded-full opacity-20" />
-                 </div>
-                 <div className="bg-slate-50 p-4 md:p-5 rounded-2xl md:rounded-3xl border border-slate-100/50 group/item hover:bg-blue-50 transition-colors">
-                    <p className="text-[9px] md:text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2 leading-none group-hover/item:text-blue-600">Travel/Miles</p>
-                    <p className="text-lg md:text-xl font-black text-slate-900">{formatCurrency(displayData.breakdown.airmiles)}</p>
-                    <div className="h-1 w-8 bg-blue-500 mt-3 rounded-full opacity-20" />
-                 </div>
-                 <div className="bg-slate-50 p-4 md:p-5 rounded-2xl md:rounded-3xl border border-slate-100/50 group/item hover:bg-amber-50 transition-colors">
-                    <p className="text-[9px] md:text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2 leading-none group-hover/item:text-amber-600">Vouchers</p>
-                    <p className="text-lg md:text-xl font-black text-slate-900">{formatCurrency(displayData.breakdown.vouchers)}</p>
-                    <div className="h-1 w-8 bg-amber-500 mt-3 rounded-full opacity-20" />
-                 </div>
-                 <div className="bg-slate-50 p-4 md:p-5 rounded-2xl md:rounded-3xl border border-slate-100/50 group/item hover:bg-purple-50 transition-colors">
-                    <p className="text-[9px] md:text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2 leading-none group-hover/item:text-purple-600">Statement Credits</p>
-                    <p className="text-lg md:text-xl font-black text-slate-900">{formatCurrency(displayData.breakdown.cash)}</p>
-                    <div className="h-1 w-8 bg-purple-500 mt-3 rounded-full opacity-20" />
+              <div className="flex-1 lg:pl-12 border-l border-slate-100 hidden md:block">
+                 <div className="flex items-center gap-4 text-slate-400">
+                    <Sparkles className="h-6 w-6 opacity-20" />
+                    <p className="text-sm font-medium leading-relaxed max-w-[400px]">
+                       Your portfolio yield is currently at <strong>{displayData.pointsToRupees.toFixed(2)}x</strong>. 
+                       Redeeming through partners could increase this by up to 24% annually.
+                    </p>
                  </div>
               </div>
            </div>
@@ -161,48 +162,49 @@ export default function WalletPage() {
 
         {/* Individual Card Breakdown */}
         <div>
-           <h2 className="text-xl md:text-2xl font-black text-slate-900 mb-6 md:mb-8 flex items-center gap-3">
-              Portfolio Assets
-              <div className="h-1 flex-1 bg-slate-100 rounded-full" />
-           </h2>
+           <div className="flex items-center justify-between mb-8">
+              <h2 className="text-xl font-black text-slate-900 flex items-center gap-3">
+                 Portfolio Assets 
+                 <span className="text-slate-400 text-sm font-bold bg-slate-100 px-3 py-1 rounded-full">{cards.length} Cards</span>
+              </h2>
+              <div className="h-1 flex-1 bg-slate-100 rounded-full mx-6 hidden md:block" />
+           </div>
 
-           <div className="grid gap-6">
-              {cards.map((card) => (
-                <div key={card.id} className="premium-card rounded-2xl md:rounded-[2.5rem] p-6 md:p-8 flex flex-col md:flex-row gap-6 md:gap-12 group transition-all hover:border-blue-100">
-                   <div className="flex md:flex-col items-center md:items-start justify-between md:justify-center md:w-[15%]">
-                      <div className={cn("h-10 w-14 md:h-12 md:w-20 rounded-xl flex items-center justify-center text-[8px] md:text-[10px] font-black italic tracking-tighter text-white transition-transform group-hover:scale-105", card.color)}>{card.issuer}</div>
-                      <div className="mt-0 md:mt-4 text-right md:text-left">
+           <div className="grid gap-4">
+              {cards.filter(c => selectedCardId === 'all' || c.id === selectedCardId).map((card) => (
+                <div key={card.id} className="premium-card bg-white border border-slate-100 rounded-[2rem] p-6 md:p-8 flex flex-col md:flex-row md:items-start gap-6 md:gap-12 transition-all hover:bg-slate-50 group">
+                   <div className="flex items-center gap-4 md:w-[220px] shrink-0 pt-2">
+                      <div className={cn("h-10 w-16 md:h-12 md:w-20 rounded-xl flex items-center justify-center text-[8px] md:text-[10px] font-black italic tracking-tighter text-white shadow-lg", card.color)}>{card.issuer}</div>
+                      <div>
                          <h3 className="text-base md:text-lg font-black text-slate-900 leading-tight">{card.name}</h3>
                          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none mt-1">•••• {card.last4}</p>
                       </div>
                    </div>
 
-                   <div className="flex-1 grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 border-t md:border-t-0 border-slate-50 pt-6 md:pt-0">
-                      {card.redemptionRules.slice(0, 4).map((rule, idx) => (
-                        <div key={idx} className="space-y-1">
-                           <div className="flex items-center gap-1.5 text-[9px] font-bold text-slate-400 uppercase tracking-wider">
-                              <div className={cn(
-                                "h-1.5 w-1.5 rounded-full",
-                                idx === 0 ? "bg-emerald-500" :
-                                idx === 1 ? "bg-blue-500" :
-                                idx === 2 ? "bg-indigo-500" : "bg-purple-500"
-                              )} />
-                              {rule.category}
+                   <div className="flex-1 border-t md:border-t-0 border-slate-50 pt-6 md:pt-2">
+                      <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-12 gap-y-8">
+                         {card.redemptionRules.slice(0, 4).map((rule, idx) => (
+                           <div key={idx} className="space-y-2 flex flex-col">
+                              <div className="flex flex-col gap-1.5 min-h-[44px]">
+                                 <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest leading-tight">{rule.category}</p>
+                                 <div className="inline-flex w-fit px-1.5 py-0.5 rounded bg-emerald-50 text-[8px] font-black text-emerald-700 leading-none">
+                                    {rule.unit ? `1:${rule.rate}` : `${rule.rate}/PT`}
+                                 </div>
+                              </div>
+                              <p className="text-xl font-black text-slate-900 leading-none">
+                                {formatCurrency(card.currentPoints * rule.rate)}
+                              </p>
                            </div>
-                           <p className="text-base md:text-xl font-black text-slate-900">
-                             {rule.unit ? `1:${rule.rate}` : `₹${rule.rate}`}
-                             {rule.unit && <span className="text-[10px] ml-1 text-slate-400 font-bold uppercase">{rule.unit}</span>}
-                           </p>
-                        </div>
-                      ))}
+                         ))}
+                      </div>
                    </div>
 
-                   <div className="flex md:flex-col items-center md:items-end justify-between md:justify-center border-t md:border-t-0 border-slate-50 pt-4 md:pt-0">
+                   <div className="flex items-center justify-between md:flex-col md:items-end md:justify-center border-t md:border-t-0 border-slate-50 pt-6 md:pt-0 shrink-0 lg:w-[140px]">
                       <div className="text-left md:text-right">
-                         <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1 leading-none">Net Liquid Value</p>
-                         <p className="text-xl md:text-2xl font-black text-emerald-600">{formatCurrency(card.currentPoints * card.pointsToRupees)}</p>
+                         <p className="text-[9px] font-black text-emerald-600 uppercase tracking-widest leading-none mb-1">Portfolio Value</p>
+                         <p className="text-2xl font-black text-emerald-600 tracking-tighter leading-none">{formatCurrency(card.currentPoints * card.pointsToRupees)}</p>
                       </div>
-                      <button className="h-10 w-10 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-blue-600 hover:text-white transition-all hidden md:flex mt-2">
+                      <button className="h-10 w-10 rounded-full bg-slate-900 text-white flex items-center justify-center shadow-lg hover:scale-110 transition-all mt-4 hidden md:flex">
                          <ChevronRight className="h-5 w-5" />
                       </button>
                    </div>
