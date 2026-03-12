@@ -109,7 +109,7 @@ export default function OptimizationPage() {
                     <div className="space-y-6">
                        <div className="grid grid-cols-2 gap-6">
                           <div>
-                             <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2 leading-none">Milestone Yield</p>
+                             <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2 leading-none">Milestone Rewards</p>
                              <p className="text-3xl font-black text-amber-400">8.2%</p>
                           </div>
                           <div>
@@ -154,7 +154,7 @@ export default function OptimizationPage() {
                           </div>
                        </div>
                        <div className="text-right">
-                          <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1">Potential Yield</p>
+                          <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1">Extra Rewards</p>
                           <p className="text-xl font-black text-emerald-600">{rule.maxReward}</p>
                        </div>
                     </div>

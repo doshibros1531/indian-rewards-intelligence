@@ -90,7 +90,7 @@ function TransactionsContent() {
             <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Points Earned</p>
             <p className="text-3xl font-black text-emerald-600 tracking-tight">{totalPoints.toLocaleString()}</p>
             <div className="mt-4 flex items-center gap-2 text-[10px] font-bold text-slate-600 uppercase">
-              Average yield: <span className="text-emerald-600">{totalAmount > 0 ? ((totalPoints / (totalAmount/100))).toFixed(2) : '0'}%</span>
+              Reward Rate: <span className="text-emerald-600">{totalAmount > 0 ? ((totalPoints / (totalAmount/100))).toFixed(2) : '0'}%</span>
             </div>
          </motion.div>
 

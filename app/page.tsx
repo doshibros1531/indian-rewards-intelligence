@@ -80,18 +80,18 @@ export default function DashboardPage() {
 
         {/* Premium Reward Optimizer Section */}
         <div className="grid gap-6 lg:grid-cols-3">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="lg:col-span-2 relative group"
           >
             <div className="absolute inset-0 bg-emerald-500/10 blur-[100px] rounded-full pointer-events-none -z-10 group-hover:bg-emerald-500/20 transition-all duration-700" />
-            
+
             <div className="h-full rounded-[2.5rem] bg-slate-900 border border-white/10 p-8 md:p-12 shadow-2xl relative overflow-hidden flex flex-col justify-between">
               {/* Background Accents */}
               <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-emerald-500/20 via-transparent to-transparent opacity-50" />
               <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-emerald-500/10 blur-[80px] rounded-full" />
-              
+
               <div className="relative z-10">
                 <div className="flex items-center justify-between mb-12">
                   <div className="flex items-center gap-2">
@@ -105,11 +105,11 @@ export default function DashboardPage() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-end">
                   <div className="space-y-2">
-                    <p className="text-slate-500 text-[10px] font-black uppercase tracking-widest">Current Yield</p>
+                    <p className="text-slate-500 text-[10px] font-black uppercase tracking-widest">Reward Earn Rate</p>
                     <div className="flex items-baseline gap-3">
-                      <h2 className="text-5xl md:text-7xl font-black text-white tracking-tighter leading-none">
-                        {currentSavingsRate}<span className="text-2xl md:text-3xl text-emerald-500">%</span>
-                      </h2>
+                       <h2 className="text-5xl md:text-7xl font-black text-white tracking-tighter leading-none">
+                         {currentSavingsRate}<span className="text-2xl md:text-3xl text-emerald-500">%</span>
+                       </h2>
                       <div className="flex flex-col">
                         <span className="text-emerald-400 text-xs font-black flex items-center gap-1">
                           <ArrowUpRight className="h-3 w-3" /> +1.2%
@@ -125,7 +125,7 @@ export default function DashboardPage() {
                       <p className="text-white text-xs font-black tracking-tight">84 / 100</p>
                     </div>
                     <div className="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
-                      <motion.div 
+                      <motion.div
                         initial={{ width: 0 }}
                         animate={{ width: "84%" }}
                         transition={{ duration: 1.5, ease: "easeOut" }}
@@ -146,18 +146,18 @@ export default function DashboardPage() {
                   <p className="text-xl font-black text-white">{formatCurrency(totalEarnedValue)}</p>
                 </div>
                 <div className="space-y-1">
-                  <p className="text-emerald-500/50 text-[9px] font-bold uppercase tracking-widest">Alpha Potential</p>
+                  <p className="text-emerald-500/50 text-[9px] font-bold uppercase tracking-widest">Missing Savings</p>
                   <p className="text-xl font-black text-emerald-400">{formatCurrency(potentialRewards)}</p>
                 </div>
                 <div className="space-y-1">
-                  <p className="text-rose-500/50 text-[9px] font-bold uppercase tracking-widest">Revenue Leakage</p>
+                  <p className="text-rose-500/50 text-[9px] font-bold uppercase tracking-widest">Rewards Lost</p>
                   <p className="text-xl font-black text-rose-500">{formatCurrency(rewardsLost)}</p>
                 </div>
               </div>
             </div>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             className="flex flex-col gap-4"
@@ -189,7 +189,7 @@ export default function DashboardPage() {
                     </div>
                   </div>
 
-                  <div 
+                  <div
                     onClick={() => router.push('/case-studies')}
                     className="group cursor-pointer"
                   >
@@ -198,17 +198,19 @@ export default function DashboardPage() {
                          <Sparkles className="h-5 w-5" />
                       </div>
                       <div>
-                        <p className="text-sm font-black text-slate-900 mb-1 leading-none italic uppercase">Optimization Alpha</p>
+                       <div>
+                        <p className="text-sm font-black text-slate-900 mb-1 leading-none italic uppercase">Bonus Savings</p>
                         <p className="text-xs text-slate-500 leading-relaxed font-medium">
-                          See how power users extract <span className="text-emerald-600 font-bold underline underline-offset-4">₹32,000+</span> annually.
+                          See how power users save an extra <span className="text-emerald-600 font-bold underline underline-offset-4">₹32,000+</span> annually.
                         </p>
+                      </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <button 
+              <button
                 onClick={() => router.push('/optimization')}
                 className="mt-10 flex w-full items-center justify-center gap-3 rounded-2xl bg-slate-900 py-4 text-xs font-black text-white hover:bg-slate-800 transition-all shadow-xl shadow-slate-900/20 uppercase tracking-widest"
               >
@@ -223,14 +225,14 @@ export default function DashboardPage() {
         <div>
            <div className="flex items-center justify-between mb-6">
              <h2 className="text-xl font-black tracking-tight text-slate-900">Your Financial Portfolio</h2>
-             <button 
+             <button
                onClick={() => router.push('/inventory')}
                className="text-sm font-bold text-emerald-600 hover:underline flex items-center gap-1"
               >
                View All <ArrowRight className="h-4 w-4" />
              </button>
            </div>
-           
+
            <div className="grid gap-4 md:gap-6 md:grid-cols-2 lg:grid-cols-3">
               {cards.map((card) => {
                 const { totalSpend, earnedValue, bestCategory } = getStatsForCard(card.id);
@@ -238,14 +240,14 @@ export default function DashboardPage() {
                 const progress = milestone ? Math.min((totalSpend / milestone.spendAmount) * 100, 100) : 0;
 
                 return (
-                  <motion.div 
-                    key={card.id} 
+                  <motion.div
+                    key={card.id}
                     whileHover={{ y: -5 }}
                     onClick={() => router.push(`/transactions?cardId=${card.id}`)}
                     className="premium-card rounded-3xl p-6 group cursor-pointer overflow-hidden relative border border-slate-100 flex flex-col h-full"
                   >
                      <div className={cn("absolute top-0 right-0 w-32 h-32 blur-3xl rounded-full opacity-5 group-hover:opacity-10 transition-opacity", card.color)} />
-                     
+
                      <div className="flex items-start justify-between relative z-10 mb-6">
                        <div className="flex items-center gap-3">
                          <div className={cn("h-10 w-14 rounded-xl shadow-sm flex items-center justify-center text-[10px] font-black italic tracking-tighter text-white", card.color)}>
@@ -279,7 +281,7 @@ export default function DashboardPage() {
                               <Sparkles className="h-3 w-3 text-amber-500" />
                               <span className="text-[9px] font-black text-slate-700 uppercase tracking-wider">Best: {bestCategory}</span>
                            </div>
-                           
+
                            <div className="flex flex-wrap gap-2">
                               {card.redemptionRules.slice(0, 3).map((rule, idx) => (
                                 <div key={idx} className="bg-white/50 border border-slate-100 px-2 py-1 rounded-lg">
@@ -317,7 +319,7 @@ export default function DashboardPage() {
                 );
               })}
 
-              <button 
+              <button
                 onClick={() => router.push('/inventory')}
                 className="rounded-3xl border-2 border-dashed border-slate-200 p-6 flex flex-col items-center justify-center gap-3 hover:bg-slate-50 hover:border-emerald-200 transition-all text-slate-400 hover:text-emerald-600 group h-full min-h-[220px]"
               >
@@ -367,13 +369,12 @@ export default function DashboardPage() {
                {
                  category: 'Online Shopping',
                  bestCards: 'HDFC Infinia, Amex Plat Travel',
-                 strategy: 'Leverage HDFC SmartBuy vouchers for Amazon/Flipkart (5X). Amex Platinum Travel milestones yield 40,000 MR points on ₹4L annual spend.',
-                 savings: '₹22,000 - ₹40,000',
+                 strategy: 'Leverage HDFC SmartBuy vouchers for Amazon/Flipkart (5X). Amex Platinum Travel milestones give 40,000 MR points on ₹4L annual spend.',
                  accent: 'bg-emerald-100 text-emerald-700 border-emerald-200 border-l-emerald-500',
                  icon: <ArrowUpRight className="h-5 w-5" />
                }
              ].map((strat, i) => (
-               <motion.div 
+               <motion.div
                  key={i}
                  initial={{ opacity: 0, y: 20 }}
                  whileInView={{ opacity: 1, y: 0 }}
@@ -400,7 +401,7 @@ export default function DashboardPage() {
                        </span>
                      ))}
                    </div>
-                   
+
                    <p className="text-sm text-slate-600 leading-relaxed font-medium mb-6">
                      {strat.strategy}
                    </p>
@@ -422,11 +423,11 @@ export default function DashboardPage() {
                  <div className="h-8 w-8 rounded-full bg-emerald-500/10 flex items-center justify-center flex-shrink-0">
                     <Sparkles className="h-4 w-4 text-emerald-400 fill-emerald-400/20" />
                  </div>
-                 <p className="text-white text-xs md:text-sm font-medium leading-relaxed">
-                   <span className="text-emerald-400 font-bold">Deep Strategy:</span> Using <span className="font-extrabold text-white underline decoration-emerald-500/50 underline-offset-4">HDFC Infinia</span> for SmartBuy multipliers yields a massive 16.5% net return.
-                 </p>
+                  <p className="text-white text-xs md:text-sm font-medium leading-relaxed">
+                    <span className="text-emerald-400 font-bold">Smart Tip:</span> Using <span className="font-extrabold text-white underline decoration-emerald-500/50 underline-offset-4">HDFC Infinia</span> for SmartBuy vouchers gives a massive 16.5% return.
+                  </p>
               </div>
-              <button 
+              <button
                 onClick={() => router.push('/optimization')}
                 className="text-[10px] md:text-xs font-bold text-white bg-emerald-600 px-5 py-2.5 rounded-xl hover:bg-emerald-500 transition-all w-full md:w-auto uppercase tracking-wider shadow-lg shadow-emerald-500/20"
               >

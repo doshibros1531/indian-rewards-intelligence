@@ -152,8 +152,8 @@ export default function WalletPage() {
                  <div className="flex items-center gap-4 text-slate-400">
                     <Sparkles className="h-6 w-6 opacity-20" />
                     <p className="text-sm font-medium leading-relaxed max-w-[400px]">
-                       Your portfolio yield is currently at <strong>{displayData.pointsToRupees.toFixed(2)}x</strong>. 
-                       Redeeming through partners could increase this by up to 24% annually.
+                       Your average reward rate is currently <strong>{displayData.pointsToRupees.toFixed(2)}x</strong>. 
+                       Redeeming through partners could increase your total savings by 24%.
                     </p>
                  </div>
               </div>
