@@ -59,7 +59,7 @@ export default function DashboardPage() {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
             <h1 className="text-2xl md:text-3xl lg:text-4xl font-extrabold tracking-tight text-slate-900 leading-tight">
-              Good Morning, Minto
+              Good Morning, Rutvij Doshi
             </h1>
             <p className="mt-1 text-sm md:text-base text-slate-500 font-medium tracking-tight">
               You're currently optimizing <span className="text-emerald-600 font-bold">₹14.2L</span> in annual spend.

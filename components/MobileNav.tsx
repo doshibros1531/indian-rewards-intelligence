@@ -107,7 +107,7 @@ export function MobileNav() {
                   <div className="flex items-center gap-4 p-4 rounded-2xl bg-slate-50">
                     <div className="h-10 w-10 rounded-full bg-slate-200 shadow-inner" />
                     <div>
-                      <p className="text-sm font-black text-slate-900 leading-none">Minto Ak.</p>
+                      <p className="text-sm font-black text-slate-900 leading-none">Rutvij Doshi</p>
                       <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mt-1">Power User</p>
                     </div>
                   </div>

@@ -75,7 +75,7 @@ export function Sidebar() {
         <div className="mt-4 flex items-center gap-3 rounded-2xl bg-slate-50 p-3">
           <div className="h-10 w-10 flex-shrink-0 rounded-full bg-slate-200 shadow-inner" />
           <div className="flex-1 overflow-hidden">
-            <p className="truncate text-xs font-semibold text-slate-900">Minto Ak.</p>
+            <p className="truncate text-xs font-semibold text-slate-900">Rutvij Doshi</p>
             <p className="truncate text-[10px] text-slate-500 font-medium">Power User</p>
           </div>
         </div>
